@@ -1,0 +1,32 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: sprint-cloud-poc
+  labels:
+      app: cloud-app
+      project: sprint-poc
+spec:
+  selector:
+    matchLabels:
+      app: cloud-app
+      project: sprint-poc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cloud-app
+        project: sprint-poc
+    spec:
+      containers:
+      - name: cloud-poc
+        image: coc.icp:8500/sprint-poc/cloud-poc
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: configvol
+          mountPath: /var/config
+      volumes:
+      - name: configvol
+        configMap:
+          name: cloud-poc-config

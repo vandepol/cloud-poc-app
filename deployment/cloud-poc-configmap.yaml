@@ -1,0 +1,19 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cloud-poc-config
+data:
+  application.properties: |
+    spring.activemq.broker-url=tcp://sprint-poc-activemq:61616
+    spring.activemq.user=admin
+    spring.activemq.password=admin
+    spring.activemq.stomp.host=sprint-poc-activemq
+    spring.activemq.stomp.port=61613
+    spring.data.mongodb.host=sprint-poc-mongo
+    spring.data.mongodb.database=test
+    spring.data.mongodb.authentication-database=admin
+    spring.data.mongodb.username=admin
+    spring.data.mongodb.password=admin
+    spring.data.mongodb.port=27017
+    mule.host=169.55.4.141
+    mule.port=31451

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+     <context:annotation-config />
+<context:component-scan base-package="com.sprint.demo" />
+<!-- <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:61616" /> -->
+<!-- <amq:queue id="destination" physicalName="jms/TPActiveMQQueue" /> -->
+
+<!-- <bean id="producerJmsConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory"> -->
+<!-- 	<property name="targetConnectionFactory" ref="jmsFactory" /> -->
+<!-- </bean> -->
+
+<!-- <bean id="consumerJmsConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory"> -->
+<!-- 	<property name="targetConnectionFactory" ref="jmsFactory" /> -->
+<!-- </bean> -->
+
+<!-- <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"> -->
+<!-- 	<property name="connectionFactory" ref="producerJmsConnectionFactory" /> -->
+<!-- 	<property name="defaultDestination" ref="destination" /> -->
+<!-- </bean> -->
+
+<!-- <jms:listener-container container-type="default" connection-factory="consumerJmsConnectionFactory" acknowledge="auto"> -->
+<!-- <jms:listener destination="jms/TPActiveMQQueue" ref="activeMQMessageListener" /> -->
+<!-- </jms:listener-container> -->
+
+<bean id="counter" class="java.util.concurrent.atomic.AtomicInteger"/>
+</beans>
