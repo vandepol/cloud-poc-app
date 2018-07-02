@@ -30,7 +30,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
 	    @Override
 	    public void configureMessageBroker(final MessageBrokerRegistry config) {
-	    	 config.enableSimpleBroker("/topic", "/hello" ,"/user");
+	    	//config.enableSimpleBroker("/topic", "/hello" ,"/user"); // this is a hold over from original demo code
 	        config.enableStompBrokerRelay("/topic") //
 	        .setRelayHost(mqHost) // 
 	        .setRelayPort(mqStompPort) //
