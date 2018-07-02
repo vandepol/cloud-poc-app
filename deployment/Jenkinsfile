@@ -12,9 +12,7 @@ podTemplate(label: label,
 		
 	  
 	  stage('Get Source') {
-	  	git branch: 'master',
-    	credentialsId: 'jconallen',
-		url: "http://169.55.4.141:31981/jconallen/cloud-poc.git"
+	  	git "https://github.com/jconallen/cloud-poc-app.git"
 	  }
 
 	  def props = readProperties  file:'deployment/pipeline.properties'
