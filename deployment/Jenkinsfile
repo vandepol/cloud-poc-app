@@ -10,6 +10,18 @@ podTemplate(label: label,
 	
 	node(label) {
 		
+		  stage( 'Clean Up Existing Deployments' ) {
+		container('kubectl') {
+		  withCredentials([[$class: 'UsernamePasswordMultiBinding',
+							  credentialsId: 'icp-id',
+							  usernameVariable: 'DOCKER_HUB_USER',
+							  passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+			  
+			  sh "kubectl delete deployments -n ${namespace} --selector=${selector}"
+		  }
+		}
+	  }
+	
 	  
 	  stage('Get Source') {
 	  	git "https://github.com/jconallen/cloud-poc-app.git"
@@ -40,17 +52,6 @@ podTemplate(label: label,
 			sh "docker push ${image}:${tag}"
 			sh "docker tag ${image}:${tag} ${image}:latest"
 			sh "docker push ${image}:latest"
-		  }
-		}
-	  }
-	  stage( 'Clean Up Existing Deployments' ) {
-		container('kubectl') {
-		  withCredentials([[$class: 'UsernamePasswordMultiBinding',
-							  credentialsId: 'icp-id',
-							  usernameVariable: 'DOCKER_HUB_USER',
-							  passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-			  
-			  sh "kubectl delete deployments -n ${namespace} --selector=${selector}"
 		  }
 		}
 	  }
