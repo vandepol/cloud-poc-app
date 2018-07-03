@@ -27,18 +27,7 @@ podTemplate(label: label,
 	  def namespace = props['namespace']
 	  def jar = props['jar']
 
-		
-	  stage( 'Clean Up Existing Deployments' ) {
-		container('kubectl') {
-		  withCredentials([[$class: 'UsernamePasswordMultiBinding',
-							  credentialsId: 'icp-id',
-							  usernameVariable: 'DOCKER_HUB_USER',
-							  passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-			  
-			  sh "kubectl delete deployments -n ${namespace} --selector=${selector}"
-		  }
-		}
-	  }
+
 	  stage('Build Maven project') {
 		container('maven') {
 			sh "mvn -B -DskipTests clean package"
@@ -61,7 +50,8 @@ podTemplate(label: label,
 							  credentialsId: 'icp-id',
 							  usernameVariable: 'DOCKER_HUB_USER',
 							  passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-			  
+			  sh "kubectl delete deployments -n ${namespace} --selector=${selector}"
+			  sh "sleep 5"
 			  sh "kubectl apply -n ${namespace} -f ${config} -f ${deployment} -f ${service}"
 		  }
 		}
