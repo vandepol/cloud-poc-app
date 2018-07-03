@@ -51,7 +51,7 @@ podTemplate(label: label,
 							  usernameVariable: 'DOCKER_HUB_USER',
 							  passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
 			  sh "kubectl delete deployments -n ${namespace} --selector=${selector}"
-			  sh "sleep 5"
+			  sh "sleep 30"
 			  sh "kubectl apply -n ${namespace} -f ${config} -f ${deployment} -f ${service}"
 		  }
 		}
