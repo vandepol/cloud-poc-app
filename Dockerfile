@@ -1,5 +1,9 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ARG JAR_FILE
-ADD ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar", "--spring.config.location=file:/var/config/application.properties"]
+#IMAGE: Get the base image for Liberty
+FROM websphere-liberty:beta
+
+COPY liberty/server.xml /opt/ibm/wlp/usr/servers/defaultServer/
+COPY target/spring-jms-activemq-helloworld-0.0.1-SNAPSHOT.jar /opt/ibm/wlp/usr/servers/defaultServer/apps
+
+#FEATURES: Install any features that are required
+RUN /opt/ibm/wlp/bin/installUtility install  --acceptLicense \
+	springBoot-1.5; exit 0
